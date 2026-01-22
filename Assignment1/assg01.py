@@ -1,5 +1,6 @@
 import sys
 
+count=0
 
 def takeInput(file):
     N = 0
@@ -27,6 +28,8 @@ def takeInput(file):
 
 
 def printing_schedules(schedule, works):
+    global count
+    count=count+1
     print("Valid Schedule Found:")
     curr_day = 0
     for day, student, work in schedule:
@@ -106,3 +109,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+    print(f"total number of valid schedule {count}")
+
+
