@@ -1,6 +1,4 @@
-% Input 1: Simple linear chain # 6day
-% input1 =% Linear chain - each assignment depends on previous one
-% Comment line Ignore
+% Input 1: 
 % N = Number of students in a group
 N 3
 % K = Number of prompts allowed per day
@@ -15,4 +13,5 @@ A 5 5 2 0
 A 6 5 5 1 0
 A 7 4 0
 A 8 1 6 4 0
+
 
