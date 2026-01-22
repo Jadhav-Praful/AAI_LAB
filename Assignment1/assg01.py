@@ -1,0 +1,108 @@
+import sys
+
+
+def takeInput(file):
+    N = 0
+    K = 0
+    works = {}
+    with open(file, "r") as f:
+        for line in f:
+            line = line.split("%")[0].strip()
+            if not line:
+                continue
+            remaining = line.split()
+            if remaining[0] == "N":
+                N = int(remaining[1])
+            elif remaining[0] == "K":
+                K = int(remaining[1])
+            elif remaining[0] == "A":
+                wid = int(remaining[1])
+                noOfPrompt = int(remaining[2])
+                dependencies = [int(x) for x in remaining[3:] if int(x) != 0]
+                works[wid] = {
+                    "noOfPrompt": noOfPrompt,
+                    "dependencies": dependencies,
+                }
+    return N, K, works
+
+
+def printing_schedules(schedule, works):
+    print("Valid Schedule Found:")
+    curr_day = 0
+    for day, student, work in schedule:
+        if day != curr_day:
+            print(f"--- Day {day} ---")
+            curr_day = day
+        print(
+            f"Student {student} -> Assignment {work} (Prompts: {works[work]['noOfPrompt']})"
+        )
+    print("=" * 45)
+
+
+def valid_works_without_dependencies(works, done):
+    return [
+        work
+        for work in works
+        if work not in done and all(day in done for day in works[work]["dependencies"])
+    ]
+
+
+def scheduling(day, prompts, done, schedule, N, K, M, works):
+    if len(done) == len(works):
+        printing_schedules(schedule, works)
+        return
+
+    valid_works = valid_works_without_dependencies(works, done)
+    progress = False
+
+    for wid in valid_works:
+        noOfPrompt = works[wid]["noOfPrompt"]
+        for x in range(N):
+            if prompts[x] >= noOfPrompt:
+                new_prompts = list(prompts)
+                new_prompts[x] -= noOfPrompt
+
+                scheduling(
+                    day,
+                    new_prompts,
+                    done | {wid},
+                    schedule + [(day, x + 1, wid)],
+                    N,
+                    K,
+                    M,
+                    works,
+                )
+                progress = True
+
+    if day < M:
+        if not progress or valid_works:
+            scheduling(day + 1, [K] * N, done, schedule, N, K, M, works)
+
+
+def main():
+    if len(sys.argv) != 3:
+        print("command prompt is incorrect correct it python file.py input.txt day")
+        return
+
+    file = sys.argv[1]
+
+    try:
+        M = int(sys.argv[2])
+        N, K, works = takeInput(file)
+        if N == 0 or K == 0 or not works:
+            print(
+                "Error: Invalid input file. Ensure N, K, and Assignments are defined."
+            )
+            return
+
+        print(f"Solving for {len(works)} Assignments, {N} Students, {M} Days...")
+        scheduling(1, [K] * N, set(), [], N, K, M, works)
+
+    except ValueError:
+        print("Error: number-of-days must be an integer.")
+    except Exception as e:
+        print(f"Error: {e}")
+
+
+if __name__ == "__main__":
+    main()
