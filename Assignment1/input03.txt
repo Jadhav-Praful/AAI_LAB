@@ -1,5 +1,4 @@
-% Input 3: Complex with multiple dependencies
-%input3 =  Complex structure - multiple dependencies per assignment
+% Input 3:
 N 3
 K 8
 A 1 2 0
@@ -15,3 +14,4 @@ A 10 2 7 8 0
 A 11 3 8 9 0
 A 12 4 10 11 0
 A 13 2 7 9 0
+
