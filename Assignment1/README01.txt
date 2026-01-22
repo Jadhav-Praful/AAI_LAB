@@ -4,9 +4,9 @@
 
 1. assn01.py - Main program
 2. create_inputs.py - Creates sample input files
-3. input1.txt - Linear chain (12 assignments)
-4. input2.txt - Tree structure (12 assignments)
-5. input3.txt - Complex DAG (13 assignments)
+3. input1.txt - (12 assignments)
+4. input2.txt - (12 assignments)
+5. input3.txt -  (13 assignments)
 6. README01.txt - This file
 
 ## Requirements
@@ -87,19 +87,20 @@ The program shows:
 
 ## Sample Inputs
 
-**input1.txt**:
+**input01.txt**:
 
 - Each assignment depends on the previous one
 - Tests sequential processing
 
-**input2.txt**: 
+**input02.txt**: 
 
 - Multiple independent branches
 - Tests parallel work
 
-**input3.txt**: 
+**input03.txt**: 
 
 - Multiple prerequisites per assignment
 - Tests constraint satisfaction
+
 
 
